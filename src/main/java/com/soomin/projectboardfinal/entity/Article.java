@@ -1,11 +1,14 @@
-package com.soomin.projectboardfinal.entity;/**
- * fileName     : WorkTypeService
+package com.soomin.projectboardfinal.entity;
+
+/**
+ * fileName     : Article
  * author       : lia
- * date         : 2023/01/12
- * description  : 근로형태 WorkTypeService
+ * date         : 2023/07/03
+ * description  : 게시글 Entity
  * ===========================================================
  * DATE            AUTHOR         NOTE
  * -----------------------------------------------------------
- * 2023/01/12       lia          최초 생성
- */public class Article {
+ * 2023/07/03       lia          최초 생성
+ */
+public class Article {
 }

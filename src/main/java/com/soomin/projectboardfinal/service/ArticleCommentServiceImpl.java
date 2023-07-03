@@ -1,11 +1,14 @@
-package com.soomin.projectboardfinal.service;/**
- * fileName     : WorkTypeService
+package com.soomin.projectboardfinal.service;
+
+/**
+ * fileName     : ArticleCommentServiceImpl
  * author       : lia
- * date         : 2023/01/12
- * description  : 근로형태 WorkTypeService
+ * date         : 2023/07/03
+ * description  : 게시글 댓글 ServiceImpl
  * ===========================================================
  * DATE            AUTHOR         NOTE
  * -----------------------------------------------------------
- * 2023/01/12       lia          최초 생성
- */public class ArticleCommentServiceImpl {
+ * 2023/07/03       lia          최초 생성
+ */
+public class ArticleCommentServiceImpl {
 }

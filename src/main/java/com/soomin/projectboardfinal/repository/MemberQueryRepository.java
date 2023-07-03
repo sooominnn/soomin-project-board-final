@@ -1,11 +1,14 @@
-package com.soomin.projectboardfinal.repository;/**
- * fileName     : WorkTypeService
+package com.soomin.projectboardfinal.repository;
+
+/**
+ * fileName     : MemberQueryRepository
  * author       : lia
- * date         : 2023/01/12
- * description  : 근로형태 WorkTypeService
+ * date         : 2023/07/03
+ * description  : 회원 Query Repository
  * ===========================================================
  * DATE            AUTHOR         NOTE
  * -----------------------------------------------------------
- * 2023/01/12       lia          최초 생성
- */public class MemberQueryRepository {
+ * 2023/07/03       lia          최초 생성
+ */
+public class MemberQueryRepository {
 }
