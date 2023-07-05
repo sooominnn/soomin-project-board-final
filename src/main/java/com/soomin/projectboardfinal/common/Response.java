@@ -36,6 +36,23 @@ public class Response {
         this.detail = detail;
         this.data = data;
     }
+    /**
+     * response 상태코드
+     *
+     * @param 	statusCode	상태코드
+     * @return	response
+     */
+    public static ResponseEntity<Response> toResponseEntity(StatusCode statusCode){
+
+        return ResponseEntity
+                .status	(statusCode.getHttpStatus())
+                .body	(Response.builder()
+                        .status	(statusCode.getHttpStatus().value())
+                        .error	(statusCode.getHttpStatus().name())
+                        .code	(statusCode.name())
+                        .message(statusCode.getDetail())
+                        .build());
+    }
 
     /**
      * response 상태코드 & 데이터
