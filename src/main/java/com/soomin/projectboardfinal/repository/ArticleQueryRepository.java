@@ -2,7 +2,9 @@ package com.soomin.projectboardfinal.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
+import com.soomin.projectboardfinal.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,12 @@ public class ArticleQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    /**
+     * 게시글 리스트 조회
+     *
+     * @param   pageable pageable
+     * @return  조회 결과
+     */
     public List<ResArticleDto> findArticleList(Pageable pageable) {
 
         return jpaQueryFactory.select(Projections.fields(ResArticleDto.class
@@ -39,5 +47,33 @@ public class ArticleQueryRepository {
                                     .offset     (pageable.getOffset())
                                     .limit      (pageable.getPageSize())
                                     .fetch();
+    }
+
+    /**
+     * 게시글 단일 조회
+     *
+     * @param   articleId 게시글 고유번호
+     * @return  조회 결과
+     */
+    public Article findArticle(long articleId) {
+
+        return jpaQueryFactory.selectFrom   (article)
+                                    .where  (article.id.eq(articleId))
+                                    .fetchOne();
+    }
+
+    /**
+     * 게시글 수정
+     *
+     * @param articleId 게시글 고유번호
+     */
+    public void updateArticle(ReqArticleDto reqArticleDto, long articleId) {
+
+        jpaQueryFactory.update  (article)
+                        .set    (article.title,             reqArticleDto.getTitle())
+                        .set    (article.content,           reqArticleDto.getContent())
+                        .set    (article.createdBy,         reqArticleDto.getCreatedBy())
+                        .where  (article.id.eq(articleId))
+                        .execute();
     }
 }

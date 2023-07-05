@@ -1,6 +1,8 @@
 package com.soomin.projectboardfinal.service;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import com.soomin.projectboardfinal.common.CustomException;
+import com.soomin.projectboardfinal.common.StatusCode;
 import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
 import com.soomin.projectboardfinal.entity.Article;
@@ -75,5 +77,27 @@ public class ArticleServiceImpl implements ArticleService {
         // 게시글 저장
         entityManager.persist(article);
         entityManager.close();
+    }
+
+    /**
+     * 게시글 수정
+     *
+     * @param reqArticleDto 게시글 정보
+     * @param articleId     게시글 고유번호
+     */
+    @Override
+    @Transactional
+    public void updateArticle(ReqArticleDto reqArticleDto, long articleId) {
+
+        // 게시글 조회
+        Article article = articleQueryRepository.findArticle(articleId);
+        if (article == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 게시글이 없습니다.");
+
+        // 게시글 수정
+        articleQueryRepository.updateArticle(reqArticleDto, articleId);
+        entityManager.clear();
+        entityManager.close();
+        // TODO entityManager.flush(), entityManager.close()에 대해 더 알아보기
+
     }
 }

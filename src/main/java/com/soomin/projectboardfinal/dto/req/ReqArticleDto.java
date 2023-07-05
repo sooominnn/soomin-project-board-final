@@ -20,4 +20,5 @@ public class ReqArticleDto {
     private String createdBy;   // 작성자
 
     // TODO 등록일자 어떻게 할지
+    // TODO 수정할 때 수정자, 수정일자 어떻게 할지
 }

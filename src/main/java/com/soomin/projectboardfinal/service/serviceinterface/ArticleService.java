@@ -38,4 +38,12 @@ public interface ArticleService {
      * @param reqArticleDto 게시글 정보
      */
     void saveArticle(ReqArticleDto reqArticleDto);
+
+    /**
+     * 게시글 수정
+     *
+     * @param reqArticleDto 게시글 정보
+     * @param articleId     게시글 고유번호
+     */
+    void updateArticle(ReqArticleDto reqArticleDto, long articleId);
 }

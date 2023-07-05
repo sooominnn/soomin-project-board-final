@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * fileName     : ArticleController
@@ -56,5 +53,20 @@ public class ArticleController {
         articleService.saveArticle(reqArticleDto);
 
         return Response.toResponseEntity(StatusCode.REGISTER_SUCCESS);
+    }
+
+    /**
+     * 게시글 수정
+     *
+     * @param   articleId       게시글 고유번호
+     * @param   reqArticleDto   게시글 정보
+     * @return  수정 결과
+     */
+    @PatchMapping(value = "/api/articles/{articleId}")
+    public ResponseEntity<Response> updateArticle(@PathVariable long articleId, @RequestBody @Valid ReqArticleDto reqArticleDto) {
+
+        articleService.updateArticle(reqArticleDto, articleId);
+
+        return Response.toResponseEntity(StatusCode.UPDATE_SUCCESS);
     }
 }
