@@ -36,6 +36,12 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleService articleService;
     private final ArticleQueryRepository articleQueryRepository;
 
+    /**
+     * 게시글 리스트 조회
+     *
+     * @param   pageable pageable
+     * @return  조회 결과
+     */
     @Override
     @Transactional(readOnly = true)
     public Page<ResArticleDto> getArticleList(Pageable pageable) {
@@ -47,6 +53,20 @@ public class ArticleServiceImpl implements ArticleService {
         JPAQuery<Long> countQuery = articleService.getArticleCount();
 
         return PageableExecutionUtils.getPage(resArticleDtoList, pageable, countQuery::fetchOne);
+    }
+
+    /**
+     * 게시글 단일 조회
+     *
+     * @param articleId 게시글 고유번호
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public void getArticle(long articleId) {
+
+        // 게시글 조회
+        Article article = articleQueryRepository.findArticle(articleId);
+        if (article == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 게시글이 없습니다.");
     }
 
     // TODO Service 와 연결해서 어떻게 해결할지 고민해보기

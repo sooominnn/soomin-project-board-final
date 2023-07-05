@@ -42,10 +42,24 @@ public class ArticleController {
     }
 
     /**
+     * 게시글 단일 조회
+     *
+     * @param   articleId   게시글 고유번호
+     * @return  조회 결과
+     */
+    @GetMapping(value = "/api/articles/{articleId}")
+    public ResponseEntity<Response> getArticle(@PathVariable long articleId) {
+
+        articleService.getArticle(articleId);
+
+        return Response.toResponseEntity(StatusCode.SEARCH_SUCCESS);
+    }
+
+    /**
      * 게시글 생성
      *
      * @param   reqArticleDto   게시글 정보
-     * @return  생성 결과
+     * @return 생성 결과
      */
     @PostMapping(value = "/api/articles")
     public ResponseEntity<Response> saveArticle(@RequestBody @Valid ReqArticleDto reqArticleDto) {

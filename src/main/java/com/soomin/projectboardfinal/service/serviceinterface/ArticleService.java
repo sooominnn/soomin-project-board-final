@@ -27,6 +27,13 @@ public interface ArticleService {
     Page<ResArticleDto> getArticleList(Pageable pageable);
 
     /**
+     * 게시글 단일 조회
+     *
+     * @param articleId 게시글 고유번호
+     */
+    void getArticle(long articleId);
+
+    /**
      * 게시글 Count 조회
      *
      * @return 게시글 count
