@@ -46,4 +46,11 @@ public interface ArticleService {
      * @param articleId     게시글 고유번호
      */
     void updateArticle(ReqArticleDto reqArticleDto, long articleId);
+
+    /**
+     * 게시글 삭제
+     *
+     * @param articleId 게시글 고유번호
+     */
+    void deleteArticle(long articleId);
 }

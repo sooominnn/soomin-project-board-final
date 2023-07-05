@@ -69,4 +69,18 @@ public class ArticleController {
 
         return Response.toResponseEntity(StatusCode.UPDATE_SUCCESS);
     }
+
+    /**
+     * 게시글 삭제
+     *
+     * @param   articleId   게시글 고유번호
+     * @return  삭제 결과
+     */
+    @DeleteMapping(value = "/api/articles/{articleId}")
+    public ResponseEntity<Response> deleteArticle(@PathVariable long articleId) {
+
+        articleService.deleteArticle(articleId);
+
+        return Response.toResponseEntity(StatusCode.DELETE_SUCCESS);
+    }
 }
