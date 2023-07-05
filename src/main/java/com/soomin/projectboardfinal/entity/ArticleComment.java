@@ -2,6 +2,7 @@ package com.soomin.projectboardfinal.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
@@ -49,4 +50,13 @@ public class ArticleComment {
     @LastModifiedBy
     @Column(nullable = false, length = 100)
     private String          modifiedBy;                   // 수정자
+
+    @Builder
+    public ArticleComment(String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+                this.content = content;
+                this.createdAt = createdAt;
+                this.createdBy = createdBy;
+                this.modifiedAt = modifiedAt;
+                this.modifiedBy = modifiedBy;
+    }
 }

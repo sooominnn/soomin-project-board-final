@@ -1,5 +1,17 @@
 package com.soomin.projectboardfinal.controller;
 
+import com.soomin.projectboardfinal.common.Response;
+import com.soomin.projectboardfinal.common.StatusCode;
+import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
+import com.soomin.projectboardfinal.service.serviceinterface.ArticleCommentService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * fileName     : ArticleCommentController
  * author       : lia
@@ -10,5 +22,24 @@ package com.soomin.projectboardfinal.controller;
  * -----------------------------------------------------------
  * 2023/07/03       lia          최초 생성
  */
+@RestController
+@RequiredArgsConstructor
 public class ArticleCommentController {
+
+    private final ArticleCommentService articleCommentService;
+
+    /**
+     * 댓글 생성
+     *
+     * @param   articleId               게시글 고유번호
+     * @param   reqArticleCommentDto    댓글 정보
+     * @return  생성 결과
+     */
+    @PostMapping(value = "/api/articles/{articleId}/articleComments")
+    public ResponseEntity<Response> saveComment(@PathVariable long articleId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
+
+        articleCommentService.saveComment(articleId, reqArticleCommentDto);
+
+        return Response.toResponseEntity(StatusCode.REGISTER_SUCCESS);
+    }
 }
