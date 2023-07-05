@@ -59,7 +59,7 @@ public class ArticleController {
      * 게시글 생성
      *
      * @param   reqArticleDto   게시글 정보
-     * @return 생성 결과
+     * @return  생성 결과
      */
     @PostMapping(value = "/api/articles")
     public ResponseEntity<Response> saveArticle(@RequestBody @Valid ReqArticleDto reqArticleDto) {
