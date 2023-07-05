@@ -2,13 +2,17 @@ package com.soomin.projectboardfinal.controller;
 
 import com.soomin.projectboardfinal.common.Response;
 import com.soomin.projectboardfinal.common.StatusCode;
+import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
 import com.soomin.projectboardfinal.service.serviceinterface.ArticleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,5 +42,19 @@ public class ArticleController {
         Page<ResArticleDto> resArticleDtoList = articleService.getArticleList(pageable);
 
         return Response.toResponseEntity(StatusCode.SEARCH_SUCCESS, resArticleDtoList);
+    }
+
+    /**
+     * 게시글 생성
+     *
+     * @param   reqArticleDto   게시글 정보
+     * @return  생성 결과
+     */
+    @PostMapping(value = "/api/articles")
+    public ResponseEntity<Response> saveArticle(@RequestBody @Valid ReqArticleDto reqArticleDto) {
+
+        articleService.saveArticle(reqArticleDto);
+
+        return Response.toResponseEntity(StatusCode.REGISTER_SUCCESS);
     }
 }

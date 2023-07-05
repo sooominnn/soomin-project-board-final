@@ -1,6 +1,7 @@
 package com.soomin.projectboardfinal.service.serviceinterface;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,4 +32,10 @@ public interface ArticleService {
      * @return 게시글 count
      */
     JPAQuery<Long> getArticleCount();
+
+    /**
+     * 게시글 생성
+     * @param reqArticleDto 게시글 정보
+     */
+    void saveArticle(ReqArticleDto reqArticleDto);
 }

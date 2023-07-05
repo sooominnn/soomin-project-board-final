@@ -2,6 +2,7 @@ package com.soomin.projectboardfinal.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
@@ -52,4 +53,14 @@ public class Article {
 
         @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
         private List<ArticleComment> articleCommentList;                // 댓글
+
+        @Builder
+        public Article(String title, String content, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
+                this.title = title;
+                this.content = content;
+                this.createdAt = createdAt;
+                this.createdBy = createdBy;
+                this.modifiedAt = modifiedAt;
+                this.modifiedBy = modifiedBy;
+        }
 }

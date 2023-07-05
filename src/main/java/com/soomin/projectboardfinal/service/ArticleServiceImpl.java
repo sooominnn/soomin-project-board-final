@@ -1,9 +1,12 @@
 package com.soomin.projectboardfinal.service;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
+import com.soomin.projectboardfinal.entity.Article;
 import com.soomin.projectboardfinal.repository.ArticleQueryRepository;
 import com.soomin.projectboardfinal.service.serviceinterface.ArticleService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
+    private final EntityManager entityManager;
     private final ArticleService articleService;
     private final ArticleQueryRepository articleQueryRepository;
 
@@ -43,8 +47,33 @@ public class ArticleServiceImpl implements ArticleService {
         return PageableExecutionUtils.getPage(resArticleDtoList, pageable, countQuery::fetchOne);
     }
 
+    // TODO Service 와 연결해서 어떻게 해결할지 고민해보기
     @Override
     public JPAQuery<Long> getArticleCount() {
         return null;
+    }
+
+    /**
+     * 게시글 생성
+     *
+     * @param reqArticleDto 게시글 정보
+     */
+    @Override
+    @Transactional
+    public void saveArticle(ReqArticleDto reqArticleDto) {
+
+        // 게시글 생성
+        Article article = Article.builder()
+                                        .title(reqArticleDto.getTitle())
+                                        .content(reqArticleDto.getContent())
+                                        .createdAt(null)
+                                        .createdBy(reqArticleDto.getCreatedBy())
+                                        .modifiedAt(null)
+                                        .modifiedBy(null)
+                                .build();
+
+        // 게시글 저장
+        entityManager.persist(article);
+        entityManager.close();
     }
 }

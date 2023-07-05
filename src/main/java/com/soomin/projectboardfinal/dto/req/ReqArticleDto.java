@@ -1,5 +1,7 @@
 package com.soomin.projectboardfinal.dto.req;
 
+import lombok.Getter;
+
 /**
  * fileName     : ReqArticleDto
  * author       : lia
@@ -10,5 +12,12 @@ package com.soomin.projectboardfinal.dto.req;
  * -----------------------------------------------------------
  * 2023/07/03       lia          최초 생성
  */
+@Getter
 public class ReqArticleDto {
+
+    private String title;   // 제목
+    private String content; // 내용
+    private String createdBy;   // 작성자
+
+    // TODO 등록일자 어떻게 할지
 }
