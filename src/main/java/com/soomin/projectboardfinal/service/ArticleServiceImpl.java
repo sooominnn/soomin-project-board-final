@@ -111,7 +111,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 게시글 조회
         Article article = articleQueryRepository.findArticle(articleId);
-        if (article == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 게시글이 없습니다.");
+        if (article == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 게시글을 찾을 수 없습니다.");
 
         // 게시글 수정
         articleQueryRepository.updateArticle(reqArticleDto, articleId);
