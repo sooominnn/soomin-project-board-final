@@ -7,10 +7,7 @@ import com.soomin.projectboardfinal.service.serviceinterface.ArticleCommentServi
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * fileName     : ArticleCommentController
@@ -36,9 +33,9 @@ public class ArticleCommentController {
      * @return  생성 결과
      */
     @PostMapping(value = "/api/articles/{articleId}/articleComments")
-    public ResponseEntity<Response> saveComment(@PathVariable long articleId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
+    public ResponseEntity<Response> saveArticleComment(@PathVariable long articleId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
 
-        articleCommentService.saveComment(articleId, reqArticleCommentDto);
+        articleCommentService.saveArticleComment(articleId, reqArticleCommentDto);
 
         return Response.toResponseEntity(StatusCode.REGISTER_SUCCESS);
     }

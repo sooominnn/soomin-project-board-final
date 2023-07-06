@@ -20,5 +20,5 @@ public interface ArticleCommentService {
      * @param articleId             게시글 고유번호
      * @param reqArticleCommentDto  댓글 정보
      */
-    void saveComment(long articleId, ReqArticleCommentDto reqArticleCommentDto);
+    void saveArticleComment(long articleId, ReqArticleCommentDto reqArticleCommentDto);
 }

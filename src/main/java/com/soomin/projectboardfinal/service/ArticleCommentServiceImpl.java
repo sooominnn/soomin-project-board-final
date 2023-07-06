@@ -35,7 +35,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
      */
     @Override
     @Transactional
-    public void saveComment(long articleId, ReqArticleCommentDto reqArticleCommentDto) {
+    public void saveArticleComment(long articleId, ReqArticleCommentDto reqArticleCommentDto) {
 
         // 댓글 생성
         ArticleComment articleComment = ArticleComment.builder()
