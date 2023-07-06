@@ -21,4 +21,13 @@ public interface ArticleCommentService {
      * @param reqArticleCommentDto  댓글 정보
      */
     void saveArticleComment(long articleId, ReqArticleCommentDto reqArticleCommentDto);
+
+    /**
+     * 댓글 수정
+     *
+     * @param articleId             게시글 고유번호
+     * @param articleCommentId      댓글 고유번호
+     * @param reqArticleCommentDto  댓글 정보
+     */
+    void updateArticleComment(long articleId, long articleCommentId, ReqArticleCommentDto reqArticleCommentDto);
 }

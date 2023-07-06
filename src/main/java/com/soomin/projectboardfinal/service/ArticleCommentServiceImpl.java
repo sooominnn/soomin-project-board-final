@@ -1,5 +1,7 @@
 package com.soomin.projectboardfinal.service;
 
+import com.soomin.projectboardfinal.common.CustomException;
+import com.soomin.projectboardfinal.common.StatusCode;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
 import com.soomin.projectboardfinal.entity.ArticleComment;
 import com.soomin.projectboardfinal.repository.ArticleCommentQueryRepository;
@@ -49,5 +51,27 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         // 댓글 저장
         entityManager.persist(articleComment);
         entityManager.close();
+    }
+
+    /**
+     * 댓글 수정
+     *
+     * @param articleId            게시글 고유번호
+     * @param articleCommentId     댓글 고유번호
+     * @param reqArticleCommentDto 댓글 정보
+     */
+    @Override
+    @Transactional
+    public void updateArticleComment(long articleId, long articleCommentId, ReqArticleCommentDto reqArticleCommentDto) {
+
+        // 댓글 조회
+        ArticleComment articleComment = articleCommentQueryRepository.findArticleComment(articleId, articleCommentId);
+        if (articleComment == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 댓글을 찾을 수 없습니다");
+
+        // 댓글 수정
+        articleCommentQueryRepository.updateArticleComment(reqArticleCommentDto, articleId, articleCommentId);
+        entityManager.clear();
+        entityManager.close();
+        // TODO entityManager.flush(), entityManager.close()에 대해 더 알아보기
     }
 }

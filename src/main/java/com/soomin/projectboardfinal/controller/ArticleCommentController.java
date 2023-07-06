@@ -39,4 +39,20 @@ public class ArticleCommentController {
 
         return Response.toResponseEntity(StatusCode.REGISTER_SUCCESS);
     }
+
+    /**
+     * 댓글 수정
+     *
+     * @param   articleId               게시글 고유번호
+     * @param   articleCommentId        댓글 고유번호
+     * @param   reqArticleCommentDto    댓글 정보
+     * @return  수정 결과
+     */
+    @PatchMapping(value = "/api/articles/{articleId}/articleComments/{articleCommentId}")
+    public ResponseEntity<Response> updateComment(@PathVariable long articleId, @PathVariable long articleCommentId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
+
+        articleCommentService.updateArticleComment(articleId, articleCommentId, reqArticleCommentDto);
+
+        return Response.toResponseEntity(StatusCode.UPDATE_SUCCESS);
+    }
 }
