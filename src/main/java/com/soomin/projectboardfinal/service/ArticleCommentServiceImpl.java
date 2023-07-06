@@ -1,15 +1,22 @@
 package com.soomin.projectboardfinal.service;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import com.soomin.projectboardfinal.common.CustomException;
 import com.soomin.projectboardfinal.common.StatusCode;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
+import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
 import com.soomin.projectboardfinal.entity.ArticleComment;
 import com.soomin.projectboardfinal.repository.ArticleCommentQueryRepository;
 import com.soomin.projectboardfinal.service.serviceinterface.ArticleCommentService;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * fileName     : ArticleCommentServiceImpl
@@ -26,7 +33,34 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     private final EntityManager entityManager;
+    private final ArticleCommentService articleCommentService;
     private final ArticleCommentQueryRepository articleCommentQueryRepository;
+
+    /**
+     * 댓글 리스트 조회
+     *
+     * @param   articleId 게시글 고유번호
+     * @param   pageable  pageable
+     * @return  조회 결과
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ResArticleCommentDto> getArticleCommentList(long articleId, Pageable pageable) {
+
+        // 댓글 리스트 조회
+        List<ResArticleCommentDto> resArticleCommentDtoList = articleCommentQueryRepository.findArticleCommentList(articleId, pageable);
+
+        // 댓글 count 조회
+        JPAQuery<Long> countQuery = articleCommentService.getArticleCommentCount();
+
+        return PageableExecutionUtils.getPage(resArticleCommentDtoList, pageable, countQuery::fetchOne);
+    }
+
+    // TODO Service 와 연결해서 어떻게 해결할지 고민해보기
+    @Override
+    public JPAQuery<Long> getArticleCommentCount() {
+        return null;
+    }
 
     /**
      * 댓글 생성

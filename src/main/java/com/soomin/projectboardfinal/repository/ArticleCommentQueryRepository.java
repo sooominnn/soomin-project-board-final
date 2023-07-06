@@ -1,10 +1,15 @@
 package com.soomin.projectboardfinal.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
+import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
 import com.soomin.projectboardfinal.entity.ArticleComment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import static com.soomin.projectboardfinal.entity.QArticle.article;
 import static com.soomin.projectboardfinal.entity.QArticleComment.articleComment;
@@ -24,6 +29,26 @@ import static com.soomin.projectboardfinal.entity.QArticleComment.articleComment
 public class ArticleCommentQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
+
+    /**
+     * 댓글 리스트 조회
+     *
+     * @param   articleId   게시글 고유번호
+     * @param   pageable    pageable
+     * @return  조회 결과
+     */
+    public List<ResArticleCommentDto> findArticleCommentList(long articleId, Pageable pageable) {
+
+        return jpaQueryFactory.select(Projections.fields(ResArticleCommentDto.class
+                                                ,articleComment.id          .as("id")
+                                                ,articleComment.content     .as("content")
+                                                ,articleComment.createdBy   .as("createdBy")))
+                                    .from       (articleComment)
+                                    .where      (article.id.eq(articleId))
+                                    .offset     (pageable.getOffset())
+                                    .limit      (pageable.getPageSize())
+                                    .fetch();
+    }
 
     /**
      * 댓글 단일 조회

@@ -11,4 +11,7 @@ package com.soomin.projectboardfinal.dto.res;
  * 2023/07/03       lia          최초 생성
  */
 public class ResArticleCommentDto {
+
+    private String  content;    // 내용
+    private String  createdBy;  // 작성자
 }

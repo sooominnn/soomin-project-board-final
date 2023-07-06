@@ -1,6 +1,10 @@
 package com.soomin.projectboardfinal.service.serviceinterface;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
+import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * fileName     : ArticleCommentService
@@ -13,6 +17,22 @@ import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
  * 2023/07/03       lia          최초 생성
  */
 public interface ArticleCommentService {
+
+    /**
+     * 댓글 리스트 조회
+     *
+     * @param   articleId   게시글 고유번호
+     * @param   pageable    pageable
+     * @return  조회 결과
+     */
+    Page<ResArticleCommentDto> getArticleCommentList(long articleId, Pageable pageable);
+
+    /**
+     * 댓글 Count 조회
+     *
+     * @return 댓글 count
+     */
+    JPAQuery<Long> getArticleCommentCount();
 
     /**
      * 댓글 생성

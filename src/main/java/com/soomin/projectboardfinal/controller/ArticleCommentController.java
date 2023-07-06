@@ -3,9 +3,12 @@ package com.soomin.projectboardfinal.controller;
 import com.soomin.projectboardfinal.common.Response;
 import com.soomin.projectboardfinal.common.StatusCode;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
+import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
 import com.soomin.projectboardfinal.service.serviceinterface.ArticleCommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +27,21 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleCommentController {
 
     private final ArticleCommentService articleCommentService;
+
+    /**
+     * 댓글 리스트 조회
+     *
+     * @param   articleId   게시글 고유번호
+     * @param   pageable    pageable
+     * @return  조회 결과
+     */
+    @GetMapping(value = "/api/articles/{articleId}/articleComments")
+    public ResponseEntity<Response> getArticleCommentList(@PathVariable long articleId, Pageable pageable) {
+
+        Page<ResArticleCommentDto> resArticleCommentDtoList = articleCommentService.getArticleCommentList(articleId, pageable);
+
+        return Response.toResponseEntity(StatusCode.SEARCH_SUCCESS, resArticleCommentDtoList);
+    }
 
     /**
      * 댓글 생성
