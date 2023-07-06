@@ -55,4 +55,19 @@ public class ArticleCommentController {
 
         return Response.toResponseEntity(StatusCode.UPDATE_SUCCESS);
     }
+
+    /**
+     * 댓글 삭제
+     *
+     * @param   articleId           게시글 고유번호
+     * @param   articleCommentId    댓글 고유번호
+     * @return  삭제 결과
+     */
+    @DeleteMapping(value = "/api/articles/{articleId}/articleComments/{articleCommentId}")
+    public ResponseEntity<Response> deleteArticleComment(@PathVariable long articleId, @PathVariable long articleCommentId) {
+
+        articleCommentService.deleteArticleComment(articleId, articleCommentId);
+
+        return Response.toResponseEntity(StatusCode.DELETE_SUCCESS);
+    }
 }

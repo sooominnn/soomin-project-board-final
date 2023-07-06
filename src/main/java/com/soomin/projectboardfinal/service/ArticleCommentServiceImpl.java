@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     private final EntityManager entityManager;
-    private final ArticleCommentService articleCommentService;
     private final ArticleCommentQueryRepository articleCommentQueryRepository;
 
     /**
@@ -73,5 +72,24 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         entityManager.clear();
         entityManager.close();
         // TODO entityManager.flush(), entityManager.close()에 대해 더 알아보기
+    }
+
+    /**
+     * 댓글 삭제
+     *
+     * @param articleId        게시글 고유번호
+     * @param articleCommentId 댓글 고유번호
+     */
+    @Override
+    @Transactional
+    public void deleteArticleComment(long articleId, long articleCommentId) {
+
+        // 댓글 조회
+        ArticleComment articleComment = articleCommentQueryRepository.findArticleComment(articleId, articleCommentId);
+        if (articleComment == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 댓글을 찾을 수 없습니다");
+
+        // 댓글 삭제
+        entityManager.remove(articleComment);
+        entityManager.close();
     }
 }
