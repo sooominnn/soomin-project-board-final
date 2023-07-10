@@ -17,7 +17,7 @@ import lombok.Getter;
 public class ReqLoginDto {
 
     @NotBlank
-    private String password;        // 비밀번호
+    private String email;           // 이메일(로그인 아이디)
     @NotBlank
-    private String passwordCheck;   // 비밀번호 확인
+    private String password;        // 비밀번호
 }
