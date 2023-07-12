@@ -33,7 +33,7 @@ import java.util.List;
 public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     private final EntityManager entityManager;
-    private final ArticleCommentService articleCommentService;
+//    private final ArticleCommentService articleCommentService;
     private final ArticleCommentQueryRepository articleCommentQueryRepository;
 
     /**
@@ -51,7 +51,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         List<ResArticleCommentDto> resArticleCommentDtoList = articleCommentQueryRepository.findArticleCommentList(articleId, pageable);
 
         // 댓글 count 조회
-        JPAQuery<Long> countQuery = articleCommentService.getArticleCommentCount();
+        JPAQuery<Long> countQuery = articleCommentQueryRepository.getArticleCommentCount();
 
         return PageableExecutionUtils.getPage(resArticleCommentDtoList, pageable, countQuery::fetchOne);
     }

@@ -1,6 +1,7 @@
 package com.soomin.projectboardfinal.repository;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
@@ -75,5 +76,9 @@ public class ArticleQueryRepository {
                         .set    (article.createdBy,         reqArticleDto.getCreatedBy())
                         .where  (article.id.eq(articleId))
                         .execute();
+    }
+
+    public JPAQuery<Long> getArticleCount() {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.soomin.projectboardfinal.repository;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
@@ -81,5 +82,10 @@ public class ArticleCommentQueryRepository {
                         .where  (articleComment.id              .eq(articleCommentId)
                                 ,articleComment.article.id      .eq(articleId))
                         .execute();
+    }
+
+    public JPAQuery<Long> getArticleCommentCount() {
+
+        return null;
     }
 }
