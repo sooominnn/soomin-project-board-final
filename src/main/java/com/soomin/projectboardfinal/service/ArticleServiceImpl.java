@@ -33,7 +33,7 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     private final EntityManager entityManager;
-    private final ArticleService articleService;
+//    private final ArticleService articleService;
     private final ArticleQueryRepository articleQueryRepository;
 
     /**
@@ -50,7 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
         List<ResArticleDto> resArticleDtoList = articleQueryRepository.findArticleList(pageable);
 
         // 게시글 count 조회
-        JPAQuery<Long> countQuery = articleService.getArticleCount();
+        JPAQuery<Long> countQuery = articleQueryRepository.getArticleCount();
 
         return PageableExecutionUtils.getPage(resArticleDtoList, pageable, countQuery::fetchOne);
     }
