@@ -56,7 +56,7 @@ public class MemberController {
      * @param   model       model
      * @return  회원가입 페이지
      */
-    @GetMapping("/join")
+    @GetMapping("/member/join")
     public String joinPage(Model model) {
         model.addAttribute("loginType", "session-login");
         model.addAttribute("pageName", "세션 로그인");
@@ -73,7 +73,7 @@ public class MemberController {
      * @param   model           model
      * @return  로그인 결과
      */
-    @PostMapping("/join")
+    @PostMapping("/api/member/join")
     public String join(@Valid @ModelAttribute ReqJoinDto reqJoinDto, BindingResult bindingResult, Model model) {
         model.addAttribute("loginType", "session-login");
         model.addAttribute("pageName", "세션 로그인");
@@ -105,7 +105,7 @@ public class MemberController {
      * @param   model       model
      * @return  로그인 페이지
      */
-    @GetMapping("/login")
+    @GetMapping("/member/login")
     public String loginPage(Model model) {
         model.addAttribute("loginType", "session-login");
         model.addAttribute("pageName", "세션 로그인");
@@ -123,7 +123,7 @@ public class MemberController {
      * @param   model               model
      * @return  로그인 결과
      */
-    @PostMapping("/login")
+    @PostMapping("/api/member/login")
     public String login(@ModelAttribute ReqLoginDto reqLoginDto, BindingResult bindingResult,
                         HttpServletRequest httpServletRequest, Model model) {
         model.addAttribute("loginType", "session-login");
@@ -159,7 +159,7 @@ public class MemberController {
      * @param   model       model
      * @return  로그아웃 결과
      */
-    @GetMapping("/logout")
+    @GetMapping("/api/member/logout")
     public String logout(HttpServletRequest request, Model model) {
         model.addAttribute("loginType", "session-login");
         model.addAttribute("pageName", "세션 로그인");

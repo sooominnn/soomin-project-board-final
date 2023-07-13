@@ -35,7 +35,7 @@ public class ArticleCommentController {
      * @param   pageable    pageable
      * @return  조회 결과
      */
-    @GetMapping(value = "/api/articles/{articleId}/articleComments")
+    @GetMapping(value = "/api/article/{articleId}/articleComments")
     public ResponseEntity<Response> getArticleCommentList(@PathVariable long articleId, Pageable pageable) {
 
         Page<ResArticleCommentDto> resArticleCommentDtoList = articleCommentService.getArticleCommentList(articleId, pageable);
@@ -50,7 +50,7 @@ public class ArticleCommentController {
      * @param   reqArticleCommentDto    댓글 정보
      * @return  생성 결과
      */
-    @PostMapping(value = "/api/articles/{articleId}/articleComments")
+    @PostMapping(value = "/api/article/{articleId}/articleComment")
     public ResponseEntity<Response> saveArticleComment(@PathVariable long articleId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
 
         articleCommentService.saveArticleComment(articleId, reqArticleCommentDto);
@@ -66,7 +66,7 @@ public class ArticleCommentController {
      * @param   reqArticleCommentDto    댓글 정보
      * @return  수정 결과
      */
-    @PatchMapping(value = "/api/articles/{articleId}/articleComments/{articleCommentId}")
+    @PatchMapping(value = "/api/article/{articleId}/articleComment/{articleCommentId}")
     public ResponseEntity<Response> updateComment(@PathVariable long articleId, @PathVariable long articleCommentId, @RequestBody @Valid ReqArticleCommentDto reqArticleCommentDto) {
 
         articleCommentService.updateArticleComment(articleId, articleCommentId, reqArticleCommentDto);
@@ -81,7 +81,7 @@ public class ArticleCommentController {
      * @param   articleCommentId    댓글 고유번호
      * @return  삭제 결과
      */
-    @DeleteMapping(value = "/api/articles/{articleId}/articleComments/{articleCommentId}")
+    @DeleteMapping(value = "/api/article/{articleId}/articleComment/{articleCommentId}")
     public ResponseEntity<Response> deleteArticleComment(@PathVariable long articleId, @PathVariable long articleCommentId) {
 
         articleCommentService.deleteArticleComment(articleId, articleCommentId);
