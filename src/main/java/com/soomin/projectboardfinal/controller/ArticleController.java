@@ -47,7 +47,7 @@ public class ArticleController {
      * @param   articleId   게시글 고유번호
      * @return  조회 결과
      */
-    @GetMapping(value = "/api/articles/{articleId}")
+    @GetMapping(value = "/api/article/{articleId}")
     public ResponseEntity<Response> getArticle(@PathVariable long articleId) {
 
         articleService.getArticle(articleId);
@@ -61,7 +61,7 @@ public class ArticleController {
      * @param   reqArticleDto   게시글 정보
      * @return  생성 결과
      */
-    @PostMapping(value = "/api/articles")
+    @PostMapping(value = "/api/article")
     public ResponseEntity<Response> saveArticle(@RequestBody @Valid ReqArticleDto reqArticleDto) {
 
         articleService.saveArticle(reqArticleDto);
@@ -76,7 +76,7 @@ public class ArticleController {
      * @param   reqArticleDto   게시글 정보
      * @return  수정 결과
      */
-    @PatchMapping(value = "/api/articles/{articleId}")
+    @PatchMapping(value = "/api/article/{articleId}")
     public ResponseEntity<Response> updateArticle(@PathVariable long articleId, @RequestBody @Valid ReqArticleDto reqArticleDto) {
 
         articleService.updateArticle(reqArticleDto, articleId);
@@ -90,7 +90,7 @@ public class ArticleController {
      * @param   articleId   게시글 고유번호
      * @return  삭제 결과
      */
-    @DeleteMapping(value = "/api/articles/{articleId}")
+    @DeleteMapping(value = "/api/article/{articleId}")
     public ResponseEntity<Response> deleteArticle(@PathVariable long articleId) {
 
         articleService.deleteArticle(articleId);
