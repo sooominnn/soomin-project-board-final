@@ -21,5 +21,5 @@ public class ResArticleDto {
     private String          title;          // 제목
     private String          content;        // 내용
     private String          createdBy;      // 생성자
-    private LocalDateTime   createdAt;      // 생성일시회
+    private LocalDateTime   createdAt;      // 생성일시
 }

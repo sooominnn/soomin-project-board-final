@@ -1,6 +1,5 @@
 package com.soomin.projectboardfinal.service;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import com.soomin.projectboardfinal.common.CustomException;
 import com.soomin.projectboardfinal.common.StatusCode;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
@@ -33,7 +32,6 @@ import java.util.List;
 public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     private final EntityManager entityManager;
-//    private final ArticleCommentService articleCommentService;
     private final ArticleCommentQueryRepository articleCommentQueryRepository;
 
     /**
@@ -50,16 +48,15 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         // 댓글 리스트 조회
         List<ResArticleCommentDto> resArticleCommentDtoList = articleCommentQueryRepository.findArticleCommentList(articleId, pageable);
 
+//        // 댓글 count 조회
+//        JPAQuery<Long> countQuery = articleCommentQueryRepository.getArticleCommentCount();
+//
+//        return PageableExecutionUtils.getPage(resArticleCommentDtoList, pageable, countQuery::fetchOne);
+
         // 댓글 count 조회
-        JPAQuery<Long> countQuery = articleCommentQueryRepository.getArticleCommentCount();
+        Long count = articleCommentQueryRepository.getArticleCommentCount();
 
-        return PageableExecutionUtils.getPage(resArticleCommentDtoList, pageable, countQuery::fetchOne);
-    }
-
-    // TODO Service 와 연결해서 어떻게 해결할지 고민해보기
-    @Override
-    public JPAQuery<Long> getArticleCommentCount() {
-        return null;
+        return PageableExecutionUtils.getPage(resArticleCommentDtoList, pageable, () -> count);
     }
 
     /**

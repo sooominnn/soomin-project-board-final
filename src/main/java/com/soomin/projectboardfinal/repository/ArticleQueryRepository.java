@@ -6,6 +6,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soomin.projectboardfinal.dto.req.ReqArticleDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleDto;
 import com.soomin.projectboardfinal.entity.Article;
+import com.soomin.projectboardfinal.entity.QArticle;
+import com.soomin.projectboardfinal.entity.QArticleComment;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -29,6 +32,7 @@ import static com.soomin.projectboardfinal.entity.QArticle.article;
 public class ArticleQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager entityManager;
 
     /**
      * 게시글 리스트 조회
@@ -78,7 +82,18 @@ public class ArticleQueryRepository {
                         .execute();
     }
 
-    public JPAQuery<Long> getArticleCount() {
-        return null;
+    /**
+     * 게시글 count
+     *
+     * @return 게시글 count
+     */
+    public Long getArticleCount() {
+
+        QArticle qArticle = QArticle.article;
+
+            return new JPAQueryFactory(entityManager)
+                    .select(qArticle.id.count())
+                    .from(qArticle)
+                    .fetchOne();
     }
 }

@@ -34,13 +34,6 @@ public interface ArticleService {
     void getArticle(long articleId);
 
     /**
-     * 게시글 Count 조회
-     *
-     * @return 게시글 count
-     */
-    JPAQuery<Long> getArticleCount();
-
-    /**
      * 게시글 생성
      * @param reqArticleDto 게시글 정보
      */
