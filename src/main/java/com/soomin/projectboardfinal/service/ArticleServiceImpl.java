@@ -33,7 +33,6 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     private final EntityManager entityManager;
-//    private final ArticleService articleService;
     private final ArticleQueryRepository articleQueryRepository;
 
     /**
@@ -49,10 +48,15 @@ public class ArticleServiceImpl implements ArticleService {
         // 게시글 조회
         List<ResArticleDto> resArticleDtoList = articleQueryRepository.findArticleList(pageable);
 
-        // 게시글 count 조회
-        JPAQuery<Long> countQuery = articleQueryRepository.getArticleCount();
+//        // 게시글 count 조회
+//        JPAQuery<Long> countQuery = articleQueryRepository.getArticleCount();
+//
+//        return PageableExecutionUtils.getPage(resArticleDtoList, pageable, countQuery::fetchOne);
 
-        return PageableExecutionUtils.getPage(resArticleDtoList, pageable, countQuery::fetchOne);
+        // 게시글 count 조회
+        Long count = articleQueryRepository.getArticleCount();
+
+        return PageableExecutionUtils.getPage(resArticleDtoList, pageable, () -> count);
     }
 
     /**
@@ -67,12 +71,6 @@ public class ArticleServiceImpl implements ArticleService {
         // 게시글 조회
         Article article = articleQueryRepository.findArticle(articleId);
         if (article == null) throw new CustomException(StatusCode.NOT_FOUND, "해당 게시글이 없습니다.");
-    }
-
-    // TODO Service 와 연결해서 어떻게 해결할지 고민해보기
-    @Override
-    public JPAQuery<Long> getArticleCount() {
-        return null;
     }
 
     /**

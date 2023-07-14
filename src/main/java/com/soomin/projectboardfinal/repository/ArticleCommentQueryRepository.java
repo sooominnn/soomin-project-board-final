@@ -6,6 +6,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.soomin.projectboardfinal.dto.req.ReqArticleCommentDto;
 import com.soomin.projectboardfinal.dto.res.ResArticleCommentDto;
 import com.soomin.projectboardfinal.entity.ArticleComment;
+import com.soomin.projectboardfinal.entity.QArticleComment;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,7 @@ import static com.soomin.projectboardfinal.entity.QArticleComment.articleComment
 public class ArticleCommentQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager entityManager;
 
     /**
      * 댓글 리스트 조회
@@ -84,8 +87,25 @@ public class ArticleCommentQueryRepository {
                         .execute();
     }
 
-    public JPAQuery<Long> getArticleCommentCount() {
+    /**
+     * 댓글 count
+     *
+     * @return 댓글 count
+     */
+//    public JPAQuery<Long> getArticleCommentCount() {
+//
+//        return jpaQueryFactory.select(articleComment.id.count())
+//                .from(articleComment)
+//                .fetchCount();
+//    }
 
-        return null;
+
+    public Long getArticleCommentCount() {
+        QArticleComment qArticleComment = QArticleComment.articleComment;
+
+        return new JPAQueryFactory(entityManager)
+                .select(qArticleComment.id.count())
+                .from(qArticleComment)
+                .fetchOne();
     }
 }

@@ -28,13 +28,6 @@ public interface ArticleCommentService {
     Page<ResArticleCommentDto> getArticleCommentList(long articleId, Pageable pageable);
 
     /**
-     * 댓글 Count 조회
-     *
-     * @return 댓글 count
-     */
-    JPAQuery<Long> getArticleCommentCount();
-
-    /**
      * 댓글 생성
      *
      * @param articleId             게시글 고유번호
